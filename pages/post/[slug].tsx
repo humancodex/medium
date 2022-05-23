@@ -25,10 +25,19 @@ function Post({ post }: Props) {
   // my form knows that i can only have this type i can put a ? before the property in order to not make a required field
   //the _id is for every post
 
-
-const onSubmit :SubmitHandler<IformInput>=async(data)=>{
-
-};
+  const onSubmit: SubmitHandler<IformInput> = async (data) => {
+    await fetch('/api/createComment', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    })
+      .then(() => {
+        console.log(data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+  //push the data of the form to the api , and update the db
 
   return (
     <main>
@@ -87,7 +96,10 @@ const onSubmit :SubmitHandler<IformInput>=async(data)=>{
 
       <hr className="my-5 mx-auto max-w-lg border border-yellow-500" />
 
-      <form onSubmit={handleSubmit(onSubmit)}className="mx-auto mb-10 flex max-w-2xl flex-col p-5">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="mx-auto mb-10 flex max-w-2xl flex-col p-5"
+      >
         <h3 className="text-sm text-yellow-500">Enjoyed this article?</h3>
         <h4 className="text-3xl font-bold">Leave a comment below!</h4>
         <hr className="mt-2 py-3" />
@@ -122,14 +134,22 @@ const onSubmit :SubmitHandler<IformInput>=async(data)=>{
           />
         </label>
 
-        <div className='flex flex-col p-5 '>
-          {errors.name && ( <span className='text-red-500'>The Name Field Is Required </span>)}
-          {errors.comment && ( <span className='text-red-500'>The comment field is required </span>)}
-          {errors.email && ( <span className='text-red-500'> The email field is required </span>)}
+        <div className="flex flex-col p-5 ">
+          {errors.name && (
+            <span className="text-red-500">The Name Field Is Required </span>
+          )}
+          {errors.comment && (
+            <span className="text-red-500">The comment field is required </span>
+          )}
+          {errors.email && (
+            <span className="text-red-500"> The email field is required </span>
+          )}
         </div>
 
-
-        <input type="submit" className="shadow  bg-yellow-500 hover:bg-yellow-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded cursor-pointer" />
+        <input
+          type="submit"
+          className="focus:shadow-outline  cursor-pointer rounded bg-yellow-500 py-2 px-4 font-bold text-white shadow hover:bg-yellow-400 focus:outline-none"
+        />
       </form>
     </main>
   )
