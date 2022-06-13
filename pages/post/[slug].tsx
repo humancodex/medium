@@ -178,10 +178,10 @@ function Post({ post }: Props) {
 
       {/* Comments  */}
 
-      <div className="ma-w-2xl max-auto m-10 flex flex-col space-y-2 p-10 shadow shadow-yellow-500">
+      <div className=" flex flex-col space-y-2 p-10 my-10 max-w-2xl mx-auto shadow shadow-yellow-500">
         <h3 className="text-4xl">Comments</h3>
         <hr className=" pb-2" />
-        {post.comments.map((comment) => (
+        {post.comments?.map((comment) => (
           <div key={comment._id}>
             <p>
               <span className="text-yellow-500">{comment.name}:</span>{' '}
